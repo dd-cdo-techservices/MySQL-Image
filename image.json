@@ -1,0 +1,91 @@
+{
+    "variables": {
+        "region":         "ap-south-1",
+                "aws_subnet_id": "subnet-0d073e6f90175113e",
+        "aws_vpc_id": "vpc-023ba5e6d4f9f34f8",
+        "aws_ami_name": "uc-one-MySQLUB-{{timestamp}}"
+    },
+    "builders": [
+        {
+            "ami_name": "{{user `aws_ami_name`}}",   
+   "instance_type": "t2.micro",
+            "region": "ap-south-1",
+         
+		"source_ami_filter": {
+   "filters": {
+     "virtualization-type": "hvm",
+     "name": "ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*",
+     "root-device-type": "ebs"
+    },
+    "owners": [
+     "099720109477"
+    ],
+    "most_recent": true
+   },
+	  "encrypt_boot": true,
+	  "kms_key_id": "arn:aws:kms:ap-south-1:574515450298:key/834f4257-2782-4703-99ec-57f673dc3a6b",
+            "vpc_id": "{{user `aws_vpc_id`}}",
+            "subnet_id": "{{user `aws_subnet_id`}}",
+                        "associate_public_ip_address": "true",
+            "ssh_username": "ubuntu",
+            "type": "amazon-ebs",
+                        "communicator": "ssh",
+		"tags": {
+        "OS_Version": "Ubuntu",
+        "Name": "uc-one-MySQLUB"
+      },
+	"run_tags" : {
+        "OS_Version": "Ubuntu",
+        "Name": "uc-one-MySQLUB"
+      }
+        }
+    ],
+   "provisioners": [
+{
+		"type": "shell",
+		"script": "source.sh"  
+	   },
+	   
+	   {
+  "type": "file",
+  "source": "id_rsa.pub",
+  "destination": "/tmp/id_rsa.pub"
+},
+{
+  "type": "shell",
+  "inline": "sudo cp /tmp/id_rsa.pub /home/ubuntu/.ssh/authorized_keys"
+},
+
+ {
+	 "type": "shell",
+	 
+"execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
+            "scripts": [
+                "sshfile.sh"
+            ]	   
+},	   
+	   
+ 
+{
+  "type": "shell",
+  "inline": "sudo systemctl restart sshd"
+},
+
+  {
+      "type": "shell",
+      "inline": "sudo apt-get install python -y"
+      
+    },
+	
+{
+      "type": "shell",
+      "inline": "sudo apt-get update -y"
+},
+
+ {
+      "type": "shell",
+      "script": "mysql.sh"
+      
+    }
+	]
+}
