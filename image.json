@@ -99,10 +99,6 @@
       "type": "shell",
       "script": "mysqltableupdate.sh"
       
-    },
-	
-	
-	
-	
+    }
 	]
 }
