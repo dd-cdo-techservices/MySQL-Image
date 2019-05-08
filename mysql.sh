@@ -15,21 +15,17 @@ sudo echo "mysql-server-5.7 mysql-server/root_password_again password Password@1
 
 if sudo apt-get -y install mysql-server-5.7 mysql-client
 then
+echo "Clean installation of mysql, no broken packages"
 exit 0;
 elif 1
 then
  sudo apt-get -y install -f
+ echo ""
 fi
-
-
 
 
 #mysql -u root -p root -e "use mysql; UPDATE user SET authentication_string=PASSWORD('$MYSQLPASSWORD') WHERE User='root'; flush privileges;" >> $LOGFILE 2>&1
 
-
-echo "Creating Wordpress DB Users and grating privileges with already collected information...\n"
-
-sudo mysqladmin -u root -pPassword@123 create blog
 
 ################################################################################
 # End of Packer
