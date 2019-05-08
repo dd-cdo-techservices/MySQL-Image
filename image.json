@@ -90,7 +90,7 @@
 	
 	{
       "type": "shell",
-      "script": "createdb.sh"
+      "script": "createDB.sh"
       
     },
 	
