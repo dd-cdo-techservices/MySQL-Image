@@ -22,9 +22,7 @@
     ],
     "most_recent": true
    },
-	  "encrypt_boot": true,
-	  "kms_key_id": "arn:aws:kms:ap-south-1:574515450298:key/834f4257-2782-4703-99ec-57f673dc3a6b",
-            "vpc_id": "{{user `aws_vpc_id`}}",
+	            "vpc_id": "{{user `aws_vpc_id`}}",
             "subnet_id": "{{user `aws_subnet_id`}}",
                         "associate_public_ip_address": "true",
             "ssh_username": "ubuntu",
