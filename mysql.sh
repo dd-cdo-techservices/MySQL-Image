@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 ################################################################################
 # Start of Packer
@@ -17,7 +17,6 @@ if sudo apt-get -y install mysql-server-5.7 mysql-client
 then
 echo "Clean installation of mysql, no broken packages"
 else
-then
  sudo apt-get -y install -f
  echo "MySQL broken packages fix"
 fi
