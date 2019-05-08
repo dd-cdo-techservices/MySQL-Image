@@ -16,11 +16,10 @@ sudo echo "mysql-server-5.7 mysql-server/root_password_again password Password@1
 if sudo apt-get -y install mysql-server-5.7 mysql-client
 then
 echo "Clean installation of mysql, no broken packages"
-exit 0;
-elif 1
+else
 then
  sudo apt-get -y install -f
- echo ""
+ echo "MySQL broken packages fix"
 fi
 
 
